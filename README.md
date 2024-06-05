@@ -145,43 +145,46 @@ Before you begin, ensure you have the following:
 ## Web Crawling
    - We are using Selenium and bs4 to get data from Tokopedia, extracting Xiaomi's wearable device, tablet and handphone category. We extract 2 pages of data per category
    - To run the script, make sure you have the environment activated in conda. Then run the script by
-    python answer/2.\ Web\ Crawling/main.py
+    ```python answer/2.\ Web\ Crawling/main.py```
    - Wait until the driver is closed, then you can check the csv and json in 'Web Crawling' folder.
+  
   ![alt text](/img/tokped.png)
   
 ## Movflix Architecture
-   1. ![alt text](/img/Movflix_Architecture.png)
-   Flow:
+1. 
+    ![alt text](/img/Movflix_Architecture.png)
 
-   - a. Data Collection
-   User activity and ratings are collectted from the app (deployed by Google Kubernetes Engine (GKE)) and sent to Apigee. 
-   Apigee then send this data to Pub/Sub topic. These data includes links, movies, ratings, tags.
+    Flow:
 
-   - b. Data Ingestion
-   Pubsub publish message to triggger cloud function, then store raw data to Google Cloud Storage (GCS). 
-   Data sent to GCS in csv format, is a not frequently accessed data and will be used as a training data, such as tags.
-   For real time data, we use Dataflow to get data from Pub/Sub for real-time batch processing and transforming. 
-   Processed data will be stored in Google BigQuery (GBQ).
+    - a. Data Collection
+    User activity and ratings are collectted from the app (deployed by Google Kubernetes Engine (GKE)) and sent to Apigee. 
+    Apigee then send this data to Pub/Sub topic. These data includes links, movies, ratings, tags.
 
-   - c. Data Processing
-   Batch processing will be done in Dataflow, creating a set of variables that can be used for training the model and stored at GBQ.
+    - b. Data Ingestion
+    Pubsub publish message to triggger cloud function, then store raw data to Google Cloud Storage (GCS). 
+    Data sent to GCS in csv format, is a not frequently accessed data and will be used as a training data, such as tags.
+    For real time data, we use Dataflow to get data from Pub/Sub for real-time batch processing and transforming. 
+    Processed data will be stored in Google BigQuery (GBQ).
 
-   - d. Model Training
-   BigQuery ML or Vertex AI trains a recommendation model using processed data from GBQ and GCS. 
-   Recommendation will mainly use ratings and user profile(not available in provided csv).
+    - c. Data Processing
+    Batch processing will be done in Dataflow, creating a set of variables that can be used for training the model and stored at GBQ.
 
-   - e. Real-time serving 
-   Generated recommendation will be uploaded to firestore using a scheduled cloud function, getting data from GBQ.
-   Now Movflix application will fetch recommendations from firestore.
+    - d. Model Training
+    BigQuery ML or Vertex AI trains a recommendation model using processed data from GBQ and GCS. 
+    Recommendation will mainly use ratings and user profile(not available in provided csv).
 
-   2.
-   Pro: 
-       - Scalability, the system will not have problem handling an increasing amount of data.
-       - Integrated, fully built on GCP ecosystem
-       - User Experience, real time recommendation with firebase
-   Cons: 
-       - Cost management, using multiple service at once will need a good cost management.
-       - Complexity, using multiple service will add the complexity of the architecture and it will increase the learning curve
+    - e. Real-time serving 
+    Generated recommendation will be uploaded to firestore using a scheduled cloud function, getting data from GBQ.
+    Now Movflix application will fetch recommendations from firestore.
 
-   3. 
-   Rating based algorithm, which mean we highly depends on rating since we do not have user watch history yet
+2.
+    Pro: 
+    - Scalability, the system will not have problem handling an increasing amount of data.
+    - Integrated, fully built on GCP ecosystem
+    - User Experience, real time recommendation with firebase
+    Cons: 
+    - Cost management, using multiple service at once will need a good cost management.
+    - Complexity, using multiple service will add the complexity of the architecture and it will increase the learning curve
+
+3. 
+    Rating based algorithm, which mean we highly depends on rating since we do not have user watch history yet
