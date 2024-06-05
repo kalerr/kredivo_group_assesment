@@ -151,29 +151,29 @@ Before you begin, ensure you have the following:
   ![alt text](/img/tokped.png)
   
 ## Movflix Architecture
-1. 
+1. Below is the diagram of the system:
     ![alt text](/img/Movflix_Architecture.png)
 
     Flow:
 
-    - a. Data Collection
+    a. Data Collection
     User activity and ratings are collectted from the app (deployed by Google Kubernetes Engine (GKE)) and sent to Apigee. 
     Apigee then send this data to Pub/Sub topic. These data includes links, movies, ratings, tags.
 
-    - b. Data Ingestion
+    b. Data Ingestion
     Pubsub publish message to triggger cloud function, then store raw data to Google Cloud Storage (GCS). 
     Data sent to GCS in csv format, is a not frequently accessed data and will be used as a training data, such as tags.
     For real time data, we use Dataflow to get data from Pub/Sub for real-time batch processing and transforming. 
     Processed data will be stored in Google BigQuery (GBQ).
 
-    - c. Data Processing
+    c. Data Processing
     Batch processing will be done in Dataflow, creating a set of variables that can be used for training the model and stored at GBQ.
 
-    - d. Model Training
+    d. Model Training
     BigQuery ML or Vertex AI trains a recommendation model using processed data from GBQ and GCS. 
     Recommendation will mainly use ratings and user profile(not available in provided csv).
 
-    - e. Real-time serving 
+    e. Real-time serving 
     Generated recommendation will be uploaded to firestore using a scheduled cloud function, getting data from GBQ.
     Now Movflix application will fetch recommendations from firestore.
 
