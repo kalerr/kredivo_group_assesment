@@ -178,13 +178,13 @@ Before you begin, ensure you have the following:
     Now Movflix application will fetch recommendations from firestore.
 
 2.
-    Pro: 
+  - Pro: 
     - Scalability, the system will not have problem handling an increasing amount of data.
     - Integrated, fully built on GCP ecosystem
     - User Experience, real time recommendation with firebase
-    Cons: 
+  - Cons: 
     - Cost management, using multiple service at once will need a good cost management.
     - Complexity, using multiple service will add the complexity of the architecture and it will increase the learning curve
 
-3. 
+1. 
     Rating based algorithm, which mean we highly depends on rating since we do not have user watch history yet
