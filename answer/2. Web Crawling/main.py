@@ -179,10 +179,3 @@ unix_timestamp = now.timestamp()
 # saving df as a csv and json
 data_df.to_csv(f'tokopedia_xiaomi_data_{unix_timestamp}.csv')
 data_df.to_json(f'tokopedia_xiaomi_data_{unix_timestamp}.json',orient='records')
-
-
-
-
-git remote add origin https://github.com/kalerr/kredivo_group_assesment.git
-git branch -M main
-git push -u origin main
