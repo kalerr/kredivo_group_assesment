@@ -8,10 +8,12 @@ Before you begin, ensure you have the following:
 
 - **PostgreSQL** hosted locally
 - **Python and Conda** to run the web crawling and manage environment
-  - Create a Conda environment by going to the directory of the repository
-  - ```cd /FinAccel\ -\ Data Engineer\ and\ Analytics\ Test\ Case/answer/2.\ Web\ Crawling```
-  - ```conda env create -f environment.yml```
-  - ```conda activate kredive_test_de```
+  - Create a Conda environment by going to the directory of the repository and activate
+    ```
+    cd /FinAccel\ -\ Data Engineer\ and\ Analytics\ Test\ Case/answer/2.\ Web\ Crawling
+    conda env create -f environment.yml
+    conda activate kredive_test_de
+    ```
 - **Optional DBeaver** for easier querying and import
 
 ## SQL
@@ -33,7 +35,7 @@ Before you begin, ensure you have the following:
         );
     ```
    - Import the data. We are using DBeaver.
-   ![alt text](img/dbeaver%20import.jpeg)
+   ![alt text](/img/dbeaver%20import.jpeg)
 
 1. **Generate value of "Total equity and liabilities" from industry name "mining", "printing" and "construction"**
    - Below is the query to get Total value for each industry. 
@@ -45,7 +47,7 @@ Before you begin, ensure you have the following:
         and lower("Industry_name_NZSIOC") in ('mining','printing','construction')
     group by "Industry_name_NZSIOC";
      ```
-     ![alt text](img/sql_1_a.png)
+     ![alt text](/img/sql_1_a.png)
    - Below is query to get Total value for mining, printing and construction industry. 
    - Resulting $522696000000000.
      ```
@@ -54,7 +56,7 @@ Before you begin, ensure you have the following:
     where "Variable_name" = 'Total equity and liabilities'
         and lower("Industry_name_NZSIOC") in ('mining','printing','construction');
      ```
-     ![alt text](img/sql_1_b.png)
+     ![alt text](/img/sql_1_b.png)
 
 2. **Generate total value for all industry aggregation based on each variable name and units only Dollars**
    - There are 4 rows with 'C' as a Value. I couldnt get the meaning of 'C' in Value, so I exclude these 4 rows from the total. 
@@ -66,7 +68,7 @@ Before you begin, ensure you have the following:
         and "Value" <> 'C'
     group by "Variable_name";
      ```
-     ![alt text](img/sql_2.png)
+     ![alt text](/img/sql_2.png)
 
 3. **Generate total value based on per individual industry name, per level and units only Dollars**
    - Excluding value 'C', resulting in 128 rows of grouped Industry name and Level
@@ -78,7 +80,7 @@ Before you begin, ensure you have the following:
     group by "Industry_name_NZSIOC", "Industry_aggregation_NZSIOC"
     order by "Industry_name_NZSIOC", "Industry_aggregation_NZSIOC";
      ```
-     ![alt text](img/sql_3.png)
+     ![alt text](/img/sql_3.png)
 
 4. **Generate total value for all industry aggregation based on each variable name and units only Dollars**
    - Generate summary of yearly total values based on industry name and units only Dollars
@@ -90,7 +92,7 @@ Before you begin, ensure you have the following:
         and "Value" <> 'C'
     group by "Industry_name_NZSIOC", "Year";
      ```
-     ![alt text](img/sql_4.png)
+     ![alt text](/img/sql_4.png)
 
 5. **Generate total value for all industry aggregation based on each variable name and units only Dollars**
    - Using CTE to avoid querying the same table twice.
@@ -138,17 +140,17 @@ Before you begin, ensure you have the following:
     order by 
     "Year";
      ```
-     ![alt text](img/sql_5.png)
+     ![alt text](/img/sql_5.png)
 
 ## Web Crawling
    - We are using Selenium and bs4 to get data from Tokopedia, extracting Xiaomi's wearable device, tablet and handphone category. We extract 2 pages of data per category
    - To run the script, make sure you have the environment activated in conda. Then run the script by
     ```python answer/2.\ Web\ Crawling/main.py```
    - Wait until the driver is closed, then you can check the csv and json in 'Web Crawling' folder.
-    ![alt text](img/tokped.png)
+    ![alt text](/img/tokped.png)
   
 ## Movflix Architecture
-   1. ![alt text](img/Movflix_Architecture.png)
+   1. ![alt text](/img/Movflix_Architecture.png)
    Flow:
 
    - a. Data Collection
