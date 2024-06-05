@@ -1,0 +1,10 @@
+name: kredive_test_de
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - selenium
+  - pandas
+  - tqdm
+  - bs4
+prefix: /Users/kalerbramastha/miniconda3/envs/kredive_test_de
