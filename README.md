@@ -186,5 +186,5 @@ Before you begin, ensure you have the following:
     - Cost management, using multiple service at once will need a good cost management.
     - Complexity, using multiple service will add the complexity of the architecture and it will increase the learning curve
 
-1. 
+3. 
     Rating based algorithm, which mean we highly depends on rating since we do not have user watch history yet
